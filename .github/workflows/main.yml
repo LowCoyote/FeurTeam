@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - master
-      - release/*
+      - feature/*
 jobs:
     build:
         runs-on: ubuntu-latest
