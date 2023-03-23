@@ -19,3 +19,5 @@ jobs:
             run: cd typescript/ && npm install
           - name: Run test
             run: cd typescript/ && npm test
+          - name: Run Stryker
+            run: cd typescript/ && npx stryker run
