@@ -1,0 +1,23 @@
+name: Test
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches:
+      - master
+      - feature/*
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v2
+          - name: Use Node.js
+            uses: actions/setup-node@v2
+            with:
+              node-version: "14.x"
+          - name: Install dependencies
+            run: cd typescript/ && npm install
+          - name: Run test
+            run: cd typescript/ && npm test
+          - name: Run Stryker
+            run: cd typescript/ && npx stryker run
