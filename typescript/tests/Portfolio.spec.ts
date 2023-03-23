@@ -1,16 +1,17 @@
 import {Currency} from '../src/Currency'
 import {Bank} from '../src/Bank'
+import {Money} from "../src/Money";
 
 class Portfolio {
-    private count: { amount: number, currency: Currency }[] = [];
+    private moneys: Money[] = [];
 
-    add(amount: number, currency: Currency) {
-        this.count.push({amount: amount, currency: currency})
+    add(money: Money) {
+        this.moneys.push(money)
     }
 
     evaluate(to: Currency, bank: Bank): number {
-        return this.count.reduce((acc : number, cur :{ amount: number, currency: Currency }) : number => {
-            return acc + bank.convertOld(cur.amount, cur.currency, to)
+        return this.moneys.reduce((acc : number, money :Money) : number => {
+            return acc + bank.convert(money, to).amount
         }, 0)
     }
 }
@@ -24,32 +25,32 @@ describe('Portfolio', function () {
 
     test('5 USD + 10 EUR = 17 USD', () => {
         const portfolio = new Portfolio()
-        portfolio.add(5, Currency.USD)
-        portfolio.add(10, Currency.EUR)
+        portfolio.add(new Money(Currency.USD, 5))
+        portfolio.add(new Money(Currency.EUR, 10))
         const bank = Bank.withExchangeRate(Currency.EUR, Currency.USD, 1.2)
         expect(portfolio.evaluate(Currency.USD, bank)).toBe(17)
     })
 
     test('1 USD + 1100 W = 2200 W', () => {
         const portfolio = new Portfolio()
-        portfolio.add(1, Currency.USD)
-        portfolio.add(1100, Currency.KRW)
+        portfolio.add(new Money(Currency.USD, 1))
+        portfolio.add(new Money(Currency.KRW, 1100))
         const bank = Bank.withExchangeRate(Currency.USD, Currency.KRW, 1100)
         expect(portfolio.evaluate(Currency.KRW, bank)).toBe(2200)
     })
 
     test('5 USD + 10 EUR = 14.1 EUR', () => {
         const portfolio = new Portfolio()
-        portfolio.add(5, Currency.USD)
-        portfolio.add(10, Currency.EUR)
+        portfolio.add(new Money(Currency.USD, 5))
+        portfolio.add(new Money(Currency.EUR, 10))
         const bank = Bank.withExchangeRate(Currency.USD, Currency.EUR, 0.82)
         expect(portfolio.evaluate(Currency.EUR, bank)).toBe(14.1)
     })
 
     test('5 USD + 10 EUR = 18940 KRW', () => {
         const portfolio = new Portfolio()
-        portfolio.add(5, Currency.USD)
-        portfolio.add(10, Currency.EUR)
+        portfolio.add(new Money(Currency.USD, 5))
+        portfolio.add(new Money(Currency.EUR, 10))
         const bank = Bank.withExchangeRate(Currency.USD, Currency.KRW, 1100)
         bank.addExchangeRate(Currency.EUR, Currency.KRW, 1344)
         expect(portfolio.evaluate(Currency.KRW, bank)).toBe(18940)

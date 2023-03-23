@@ -33,11 +33,8 @@ export class Bank {
     return to === money.currency
     ? money : new Money(to, money.amount * this._exchangeRates.get(this.getKey(money.currency,to)));
   }
-  private canConvert(currency: Currency, to: Currency) {
-    if (currency === to)
-        return true
-    else
-      return false
+  private canConvert(from: Currency, to: Currency) {
+    return from === to || this._exchangeRates.has(this.getKey(from, to))
   }
 
   private getKey(from: Currency, to: Currency) {
