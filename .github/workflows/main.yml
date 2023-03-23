@@ -1,7 +1,11 @@
-name: Main
+name: Test
 on:
+  pull_request:
+    branches: [ master ]
   push:
-    branches: [ main ]
+    branches:
+      - master
+      - release/*
   workflow_dispatch:
 jobs:
     build:
