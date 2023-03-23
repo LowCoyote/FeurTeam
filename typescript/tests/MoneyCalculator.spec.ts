@@ -1,19 +1,27 @@
-import { Currency } from '../src/Currency'
-import { MoneyCalculator } from '../src/MoneyCalculator'
+import {Currency} from '../src/Currency'
+import {Money} from "../src/Money";
 
 describe('Money', function () {
+
   test('add in usd returns number', () => {
-    expect(MoneyCalculator.add(5, Currency.USD, 10)).toBeNumber()
-    expect(MoneyCalculator.add(5, Currency.USD, 10)).not.toBeNull()
-    expect(MoneyCalculator.add(5, Currency.USD, 10)).toEqual(15)
+    const money1: Money = new Money(Currency.USD, 5)
+    const money2:Money = new Money(Currency.USD, 10)
+
+    const addition = money1.add(money2)
+    expect(addition).toEqual(15)
   })
 
+
   test('multiply in eur returns positive number', () => {
-    expect(MoneyCalculator.times(10, Currency.EUR, 2)).toBeGreaterThan(0)
-    expect(MoneyCalculator.times(10, Currency.EUR, 2)).toEqual(20)
+    const money3:Money = new Money(Currency.EUR, 10)
+    const multiplied:number = money3.times(2)
+    expect(multiplied).toEqual(20)
   })
 
   test('divide in korean won returns number', () => {
-    expect(1000.5).toBe(MoneyCalculator.divide(4002, Currency.KRW, 4))
+    const money4:Money = new Money(Currency.KRW, 4002)
+    const divided = money4.divide(4)
+    expect(divided).toEqual(1000.5)
   })
+
 })
