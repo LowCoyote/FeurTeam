@@ -1,5 +1,6 @@
 # Xtrem Craft workshop
-
+## Equipe de : Kahloul Aissa, Delmas Jérémy et Campmas Pierre
+### Dans le dossier typescript et dans le dossier 'notes' vous trouverez les notes de l'atelier
 This workshop is based on the [Xtrem TDD workshop](https://github.com/les-tontons-crafters/xtrem-tdd-money-kata), 
 by [Yoan Thirion](https://github.com/ythirion) and [Guillaume Faas](https://github.com/Tr00d)  
 
