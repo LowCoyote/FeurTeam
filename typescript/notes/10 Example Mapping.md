@@ -12,7 +12,7 @@ So that I can express exchange rates based on it
 ### Règles métiers 
 - **Règle une :La devise pivot doit pouvoir convertir et être convertie dans toutes les autres devises disponibles**
 - **Règle deux : Si une devise pivot existe alors la conversion doit OBLIGATOIREMENT passer par celle-ci**
-- **Règle quatre : La devise pivot est obligatoire et immuable**
+- **Règle trois : La devise pivot est obligatoire et immuable**
 
 ```gherkin
 Given a bank with Euro as Pivot Currency
